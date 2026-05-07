@@ -77,6 +77,18 @@
   .addon-card p, .addon-card ul{margin:0;color:#1e2440;font-size:13px;line-height:1.55}
   .addon-card ul{padding-left:18px;margin-top:6px}
 
+
+  /* Desktop Pet */
+  .desktop-pet{position:fixed;right:22px;bottom:18px;z-index:50;display:flex;flex-direction:column;align-items:center;gap:6px;user-select:none}
+  .pet-sprite{width:86px;height:86px;border-radius:50%;background:radial-gradient(circle at 28% 28%,#fff 6%,#ffd5a6 7%,#ffbc70 45%,#f39b4d 72%,#dd7c2f 100%);box-shadow:0 8px 18px rgba(16,20,38,.22);position:relative;animation:pet-bob 2.4s ease-in-out infinite}
+  .pet-sprite:before,.pet-sprite:after{content:"";position:absolute;top:16px;width:14px;height:14px;border-radius:50%;background:#2b2b2b}
+  .pet-sprite:before{left:24px}.pet-sprite:after{right:24px}
+  .pet-mouth{position:absolute;left:50%;top:49px;width:18px;height:10px;border-bottom:3px solid #2b2b2b;border-radius:0 0 14px 14px;transform:translateX(-50%)}
+  .pet-paw{width:34px;height:14px;background:#f0a259;border-radius:16px;box-shadow:0 3px 10px rgba(16,20,38,.2)}
+  .pet-note{font-size:11px;color:#3b4260;background:#fff;padding:4px 8px;border-radius:999px;box-shadow:var(--shadow)}
+  @keyframes pet-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  @media (max-width:920px){.desktop-pet{display:none}}
+
   /* Footer */
   .footer{text-align:center;color:#5b6378;font-size:12px;padding:22px 12px; margin-top:18px}
 </style>
@@ -91,6 +103,14 @@
       links.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+active));
     };
     window.addEventListener('scroll', setActive);
+    const notes = ['Hi, I\'m your desk buddy 👋','Need a story spark? 💡','You've got this! 🚀'];
+    const petNote = document.querySelector('.pet-note');
+    let idx = 0;
+    setInterval(()=>{
+      if(!petNote) return;
+      idx = (idx + 1) % notes.length;
+      petNote.textContent = notes[idx];
+    }, 3500);
     setActive();
   });
 </script>
@@ -342,5 +362,12 @@
       <div class="footer">© TimesPro. All rights reserved.</div>
     </main>
   </div>
+
+  <div class="desktop-pet" aria-label="Desktop pet" title="TimesPro desktop pet">
+    <div class="pet-sprite"><span class="pet-mouth"></span></div>
+    <div class="pet-paw"></div>
+    <div class="pet-note">Hi, I'm your desk buddy 👋</div>
+  </div>
+
 </body>
 </html>
